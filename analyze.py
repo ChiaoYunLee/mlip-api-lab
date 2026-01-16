@@ -26,7 +26,11 @@ def get_itinerary(destination: str) -> Dict[str, Any]:
                       messages = 
                       [{
                           "content":f"""Generate a structured travel itinerary in JSON format for the destination: {destination}, with only the 
-                                    following 4 keys: destination, price_range, ideal_visit_times, and top_attractions.""",
+                                    following 4 keys: 
+                                    - destination (str)
+                                    - price_range (str): use categorical labels only, don't use dollar ranges, e.g. "Low", "Low-Mid", "Mid", "Mid-High", "High"
+                                    - ideal_visit_times (list): express only as months, e.g., "April-June"
+                                    - top_attractions (list)""",
                           "role":"user"
                       }])
     return json.loads(data.choices[0].message.content) # type: dictionary
