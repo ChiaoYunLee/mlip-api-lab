@@ -6,8 +6,7 @@ from litellm import completion
 # You can replace these with other models as needed but this is the one we suggest for this lab.
 MODEL = "groq/llama-3.3-70b-versatile"
 
-api_key = "hardcoded API_KEY HERE"
-
+api_key = os.getenv("GROQ_API_KEY")
 
 def get_itinerary(destination: str) -> Dict[str, Any]:
     """
@@ -21,7 +20,13 @@ def get_itinerary(destination: str) -> Dict[str, Any]:
 
     # See https://docs.litellm.ai/docs/ for reference.
 
-    data = ...
-    
-
-    return data
+    data = completion(model = MODEL,
+                      api_key = api_key,
+                      response_format={ "type": "json_object" },
+                      messages = 
+                      [{
+                          "content":f"""Generate a structured travel itinerary in JSON format for the destination: {destination}, with only the 
+                                    following 4 keys: destination, price_range, ideal_visit_times, and top_attractions.""",
+                          "role":"user"
+                      }])
+    return json.loads(data.choices[0].message.content) # type: dictionary

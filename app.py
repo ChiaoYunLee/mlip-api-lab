@@ -13,7 +13,7 @@ def itinerary():
 
     # Basic request validation
     if not destination:
-        return jsonify({"error": "Missing required query parameter: destination"}), 400
+        return jsonify({"error": "Missing required query parameter: destination"}), 400 # convert dictionary to JSON-formatted response
     if len(destination) > 120:
         return jsonify({"error": "destination is too long (max 120 chars)"}), 400
 
